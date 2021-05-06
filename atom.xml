@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>JINX Club</title>
-  
+  <icon>https://jinx.city/icon.png</icon>
   <subtitle>旧世界</subtitle>
-  <link href="http://jinx.city/atom.xml" rel="self"/>
+  <link href="https://jinx.city/atom.xml" rel="self"/>
   
-  <link href="http://jinx.city/"/>
+  <link href="https://jinx.city/"/>
   <updated>2021-05-04T07:14:19.638Z</updated>
-  <id>http://jinx.city/</id>
+  <id>https://jinx.city/</id>
   
   <author>
     <name>Jinx</name>
@@ -18,48 +18,50 @@
   
   <entry>
     <title>DNS全介绍</title>
-    <link href="http://jinx.city/2021/05/04/DNS%E5%85%A8%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://jinx.city/2021/05/04/DNS%E5%85%A8%E4%BB%8B%E7%BB%8D/</id>
+    <link href="https://jinx.city/1/"/>
+    <id>https://jinx.city/1/</id>
     <published>2021-05-04T06:08:19.000Z</published>
     <updated>2021-05-04T07:14:19.638Z</updated>
     
-    <content type="html"><![CDATA[<div class="note info simple"><p>简单好懂的<br>学术向的解释和梳理<br>用了不同的标记来方便阅读</p></div><hr><h1 id="什么是DNS"><a href="#什么是DNS" class="headerlink" title="什么是DNS"></a>什么是DNS</h1><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/one.jpg" alt="小？你是否有很多py？"><br>域名系统（英语：Domain Name System，缩写：DNS）是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网<br>（引用自维某基百科）</p><hr><h1 id="DNS浅谈"><a href="#DNS浅谈" class="headerlink" title="DNS浅谈"></a>DNS浅谈</h1><h2 id="修正历史"><a href="#修正历史" class="headerlink" title="修正历史"></a>修正历史</h2><p>DNS最早于1983年发明，其1987年发布第1034号和1035号草案修正了DNS技术规范，并废除了之前的第882和883号草案。<br>由于该草案过于古老，导致后期使用导致了域名劫持以及域名服务器缓存污染等严重影响用户使用可体验的问题。</p><h2 id="基础工作原理"><a href="#基础工作原理" class="headerlink" title="基础工作原理"></a>基础工作原理</h2><p>原理过于深奥，先举个生动点的小例子</p><div class="note success simple"><p>就相当于你千里迢迢，拿了张车票到火车站，预约了一个导航将你指引到目的地。</p></div><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/two.jpg" alt="图像化说明"><br>大概流程，当你打开网址，输入一个网站按下确认键，域名访问请求被路由器引导到 Internet 服务提供商“LSP”进行解析，ISP 的 DNS 服务器将解析域名的请求转发到 DNS 根名称服务器或者读取本地缓存得到解析值</p><h3 id="这里就要说到DNS查询的两种方式"><a href="#这里就要说到DNS查询的两种方式" class="headerlink" title="这里就要说到DNS查询的两种方式"></a>这里就要说到DNS查询的两种方式</h3><p>递归和迭代。<br>DNS客户端设置使用的DNS服务器一般都是递归服务器，它负责全权处理客户端的DNS查询请求，直到返回最终结果。而DNS服务器之间一般采用迭代查询方式</p><div class="note primary simple"><p>以查询jinx .city为例：<br>客户端发送查询报文”query jinx .city”至DNS服务器，DNS服务器首先检查自身缓存，如果存在记录则直接返回结果。<br>如果记录老化或不存在，则：<br>DNS服务器向根域名服务器发送查询报文”query jinx .city”，根域名服务器返回顶级域 .city 的权威域名服务器地址。<br>DNS服务器向 .city域的权威域名服务器发送查询报文”query jinx .city”，得到二级域 .jinx .city 的权威域名服务器地址。<br>DNS服务器向 .jinx .city 域的权威域名服务器发送查询报文”query jinx .city”，得到主机 zh 的A记录（或者其他类型记录），存入自身缓存并返回给客户端。</p></div><p>ISP 的 DNS 解析程序得到访问者需要的 IP 地址，此时解析程序将此值返回至浏览器。<br><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/three.jpg" alt="流程图"><br>PS：DNS 解析程序还会将首次访问的域名的 IP 地址缓存，以便它能够在下次有人访问相同网址时更快地作出响应（DNS缓存机制）</p><h2 id="DNS常见的毛病"><a href="#DNS常见的毛病" class="headerlink" title="DNS常见的毛病"></a>DNS常见的毛病</h2><p>域名劫持／网域服务器缓存污染</p><div class="note success simple"><p>就相当于你从火车站出来，找了个预约向导，想到目的地。<br>结果旁边一个揽客的小贩突然给你跑过来说，我是向导先把你给领走了，就留下之前的那个预约的向导在原地抓瞎，找不到你回家了，然后自己就被那个无良小贩给引导去了一些不知道的地方，反正就是错误地址或者去了，但是他给你绕了弯路，中间夹带了私货。至于缓存污染，就相当于你预约的那个向导他知道的地址也是错的，然后嘿嘿嘿笑着带你走</p></div><p>下面是看了也白看的详细解释（其实我还是推荐看的）<br><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/four.jpg" alt="简单易懂。。"><br> 网域服务器缓存污染（DNS cache pollution），又称域名服务器缓存投毒（DNS cache poisoning）、DNS缓存投毒，是指一些刻意制造或无意中制造出来的域名服务器数据包，把域名指往不正确的IP地址。一般来说，在互联网上都有可信赖的网域服务器，但为减低网络上的流量压力，一般的域名服务器都会把从上游的域名服务器获得的解析记录暂存起来，待下次有其他机器要求解析域名时，可以立即提供服务。一旦有关网域的局域域名服务器的缓存受到污染，就会把网域内的电脑导引往错误的服务器或服务器的网址。<br> 域名服务器缓存污染可能是因为域名服务器软件的设计错误而产生，但亦可能由别有用心者透过研究开放架构的域名服务器系统来利用当中的漏洞。</p><h3 id="让我们来康康实例"><a href="#让我们来康康实例" class="headerlink" title="让我们来康康实例"></a>让我们来康康实例</h3><p>打开一些网站同样可以受到劫持<br><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/five.jpg" alt="某网站"></p><hr><h1 id="保护DNS"><a href="#保护DNS" class="headerlink" title="保护DNS"></a>保护DNS</h1><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/six.jpg" alt="简要概念"><br>大概有……emmm至少有10种吧，由于涉及的内容比较多，考虑图文长度和质量，另外再写一篇图文<br>关注我动态或者收藏此篇图文后续在评论区置顶一个通道<br>(如果我偷懒就先画饼等我磨洋工反正该写会写的别着急)</p><hr><h1 id="公共DNS服务器浅谈"><a href="#公共DNS服务器浅谈" class="headerlink" title="公共DNS服务器浅谈"></a>公共DNS服务器浅谈</h1><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/seven.jpg" alt="公共DNS哪家强？这有可谈性？"></p><h2 id="https-segmentfault-com-a-1190000004607227-这是一个公共DNS列表"><a href="#https-segmentfault-com-a-1190000004607227-这是一个公共DNS列表" class="headerlink" title="https://segmentfault.com/a/1190000004607227 这是一个公共DNS列表"></a><a href="https://segmentfault.com/a/1190000004607227">https://segmentfault.com/a/1190000004607227</a> 这是一个公共DNS列表</h2><h2 id="简洁明了的说明一下公共DNS服务器吧"><a href="#简洁明了的说明一下公共DNS服务器吧" class="headerlink" title="简洁明了的说明一下公共DNS服务器吧"></a>简洁明了的说明一下公共DNS服务器吧</h2><p>由于DNS对于网络环境，上网质量的重要性，所以会出现公共DNS</p><h3 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h3><p>优质的公共DNS提供一定程度上屏蔽恶意网站，钓鱼网站等功能</p><h3 id="劣势："><a href="#劣势：" class="headerlink" title="劣势："></a>劣势：</h3><p>即使优秀的公共DNS，也会出现或有很大可能出现严重的DNS缓存污染问题，解析不能保证稳定且高效，一般公共DNS不提供或提供但是实用基本没有效果的 广告拦截功能</p><div class="note warning simple"><p>国内公共DNS广告拦截吗？不敢苟同，国外公共DNS拦截国内满天飞的广告吗？</p></div><p>公共DNS没办法个人定制规则，<br>提供的拦截规则跟不上目前的网络环境，<br>安全性不够高，<br>国外DNS对国内用户提供的服务极不稳定</p><hr><h1 id="私人DNS浅谈"><a href="#私人DNS浅谈" class="headerlink" title="私人DNS浅谈"></a>私人DNS浅谈</h1><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/ForJinx/pic@master/DNS%E7%B4%A0%E6%9D%90%E5%9B%BE%E7%89%87/eight.jpg" alt="水一下图，总不能放机房照片吧"><br>私人DNS指使用了DNS over TLS（简称DoT）以及DNS over HTTPS（简称DoH）进行了传输内容加密的DNS服务器，随着新的扩展以及协议不断的完善安全性也正在提升<br>如DNSSEC对传输报文添加一个密钥，确保传输内容在中途不会为第三方篡改，但不保证传输的内容一定可用。<br>以及EDNS规则这些都确保了DNS结果无法被第三方篡改，当然也可能会造成老旧设备无法兼容以及出现新的玄学解析问题</p><h2 id="劣势：-1"><a href="#劣势：-1" class="headerlink" title="劣势："></a>劣势：</h2><p>个人搭建<br>成本高，需要自己维护（如果你用别人搭建的当我没说，但是如果你用别人搭建的但是这个人不可靠你隐私安全就更没有保障了）<br>容易被攻击（不过也没有网络扫描器没事扫到这个锲而不舍的打，而且如果你硬件和技术过硬的话完全不用担心）<br>根据协议可能有些会出现玄学问题</p><h2 id="优势：-1"><a href="#优势：-1" class="headerlink" title="优势："></a>优势：</h2><p>高效稳定（这取决于你姬子和技术水平）<br>支持自己定义规则<br>屏蔽广告效率高（不用担心广告满天飞啦）<br>支持指定解析<br>安全性高，可以得到保证（特指技术到家）<br>很方便的监控功能<br>支持在〈邮电部国家公用电信网提供的国际出入口信道〉相关代理软件  上面加装（换句话说私人的也能行）<br>实用！</p><div class="note info simple"><p>关于私人DNS之前我前一篇图文有亮点，有兴趣的可以去康康（懂的已经在去的路上了）</p></div><hr><h1 id="下期预订"><a href="#下期预订" class="headerlink" title="下期预订"></a>下期预订</h1><p>保护DNS的方法<br>hosts和DNS服务器差距</p><hr><h1 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h1><p>@ThekissofGod 技术指导及文章评审<br>@cxplay 以及大大怪的资料收集和码字陪伴</p><hr><h1 id="引用说明"><a href="#引用说明" class="headerlink" title="引用说明"></a>引用说明</h1><h2 id="我说不存在涉及侵权资源的引用，要是有，就是个人用途，我又没有用于商用，别抬杠"><a href="#我说不存在涉及侵权资源的引用，要是有，就是个人用途，我又没有用于商用，别抬杠" class="headerlink" title="我说不存在涉及侵权资源的引用，要是有，就是个人用途，我又没有用于商用，别抬杠"></a>我说不存在涉及侵权资源的引用，要是有，就是个人用途，我又没有用于商用，别抬杠</h2><p>这里是Jinx，看完点赞…emmm下次一定很难鼓励更新啊<br>下期再见，么么哒</p><hr><div class="note warning simple"><p>图文所有原创部分转载请注明引用来源，已由jinx博物馆原创文章收录保护</p></div><hr>]]></content>
-    
     
       
       
+        
+        
     <summary type="html">&lt;div class=&quot;note info simple&quot;&gt;&lt;p&gt;简单好懂的&lt;br&gt;学术向的解释和梳理&lt;br&gt;用了不同的标记来方便阅读&lt;/p&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h1 id=&quot;什么是DNS&quot;&gt;&lt;a href=&quot;#什么是DNS&quot; class=&quot;headerlink&quot; tit</summary>
+&lt;h1 id=&quot;什么是DNS&quot;&gt;&lt;a href=&quot;#什么是DNS&quot; class=&quot;headerlink&quot;</summary>
+        
       
     
     
     
-    <category term="学习" scheme="http://jinx.city/categories/%E5%AD%A6%E4%B9%A0/"/>
+    <category term="学习" scheme="https://jinx.city/categories/%E5%AD%A6%E4%B9%A0/"/>
     
     
-    <category term="DNS指北" scheme="http://jinx.city/tags/DNS%E6%8C%87%E5%8C%97/"/>
+    <category term="DNS指北" scheme="https://jinx.city/tags/DNS%E6%8C%87%E5%8C%97/"/>
     
-    <category term="网路基础" scheme="http://jinx.city/tags/%E7%BD%91%E8%B7%AF%E5%9F%BA%E7%A1%80/"/>
+    <category term="网路基础" scheme="https://jinx.city/tags/%E7%BD%91%E8%B7%AF%E5%9F%BA%E7%A1%80/"/>
     
-    <category term="科普" scheme="http://jinx.city/tags/%E7%A7%91%E6%99%AE/"/>
+    <category term="科普" scheme="https://jinx.city/tags/%E7%A7%91%E6%99%AE/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://jinx.city/2021/05/03/hello-world/"/>
-    <id>http://jinx.city/2021/05/03/hello-world/</id>
+    <link href="https://jinx.city/1/"/>
+    <id>https://jinx.city/1/</id>
     <published>2021-05-03T04:52:27.094Z</published>
     <updated>2021-02-27T08:42:24.000Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
     
       
       
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</summary>
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
       
     
     
